@@ -15,7 +15,6 @@ class Program
         Env.Load();
         var apiKey = Environment.GetEnvironmentVariable("API_KEY");
         
-        //Console.Write("Enter your current location: ");
         var location = args.Length > 0 ? args[0] : "Budapest";
         if (string.IsNullOrWhiteSpace(location))
         {
