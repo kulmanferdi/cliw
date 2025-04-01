@@ -4,18 +4,19 @@ using System;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DotNetEnv;
 
 class Program
 {
     private static readonly string BaseUrl = "https://api.weatherstack.com";
 
-    static async Task Main()
+    static async Task Main(string [] args)
     {
-        // register on weatherstack.com to get your free API key
-        var apiKey = LoadApiKey();
+        Env.Load();
+        var apiKey = Environment.GetEnvironmentVariable("API_KEY");
         
-        Console.Write("Enter your current location: ");
-        var location = Console.ReadLine();
+        //Console.Write("Enter your current location: ");
+        var location = args.Length > 0 ? args[0] : "Budapest";
         if (string.IsNullOrWhiteSpace(location))
         {
             Console.WriteLine("Invalid location.");
@@ -23,15 +24,13 @@ class Program
         }
 
         using var client = new HttpClient();
-        var req = "current";
-        var requestUrl = $"{BaseUrl}/{req}?access_key={apiKey}&query={Uri.EscapeDataString(location)}";
-
+        var requestType = "current";
+        var requestUrl = $"{BaseUrl}/{requestType}?access_key={apiKey}&query={Uri.EscapeDataString(location)}";
         try
         {
             var response = await client.GetAsync(requestUrl);
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
-            //Console.WriteLine(content);
             using JsonDocument doc = JsonDocument.Parse(content);
             var root = doc.RootElement;
             
@@ -57,15 +56,5 @@ class Program
         {
             Console.WriteLine("Error fetching weather data: " + ex.Message);
         }
-    }
-    
-    static string LoadApiKey()
-    {
-        foreach (var line in File.ReadAllLines(".env"))
-        {
-            if (line.StartsWith("WEATHERSTACK_API_KEY="))
-                return line.Split('=')[1].Trim();
-        }
-        return String.Empty;
     }
 }

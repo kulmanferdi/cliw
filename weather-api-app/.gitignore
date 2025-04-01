@@ -1,0 +1,11 @@
+.env
+
+bin/
+obj/
+
+.idea/
+.vs/
+
+*.user
+*.suo
+*.swp
