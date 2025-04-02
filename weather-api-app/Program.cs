@@ -12,7 +12,7 @@ class Program
 
     static async Task Main(string [] args)
     {
-        Env.Load();
+        Env.Load("./.env");
         var apiKey = Environment.GetEnvironmentVariable("API_KEY");
         
         var location = args.Length > 0 ? args[0] : "Budapest";
