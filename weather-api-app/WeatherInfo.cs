@@ -12,6 +12,7 @@ public class WeatherInfo(JsonElement current)
     private string WindDirection { get; } = current.GetProperty("wind_dir").GetString()!;
     private int Humidity { get; } = current.GetProperty("humidity").GetInt32();
     private int Uvi { get; } =  current.GetProperty("uv_index").GetInt32();
+    private int Visibility { get; } = current.GetProperty("visibility").GetInt32();
     
     public void Print()
     {
@@ -19,8 +20,7 @@ public class WeatherInfo(JsonElement current)
         Console.WriteLine($"Temperature: {Temperature} °C @ {ObservationTime}");
         Console.WriteLine($"Feels like: {RealFeel} °C\n{WeatherDescriptions.FirstOrDefault()}");
         Console.WriteLine($"Wind: {WindSpeed} km/h direction: {WindDirection}");
-        Console.WriteLine($"Humidity: {Humidity} %\nUV Index: {Uvi}\n");
-
+        Console.WriteLine($"Humidity: {Humidity} %\nUV Index: {Uvi}\nVisibility: {Visibility}\n");
     }
     
 }

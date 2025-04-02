@@ -1,4 +1,6 @@
-﻿namespace weather_api_app;
+﻿using System.Globalization;
+
+namespace weather_api_app;
 
 using System;
 using System.Net.Http;
@@ -6,36 +8,53 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using DotNetEnv;
 
-class Program
+internal abstract class Program
 {
-    private static readonly string BaseUrl = "https://api.weatherstack.com";
-    
-    static async Task Main()
+    private const string BaseUrl = "https://api.weatherstack.com";
+
+    private static readonly string [] Queries =
+    [
+        "current",
+        "forecast"
+    ];
+
+    private const int ForecastDays = 1;
+    private const int ForecastHours = 1;
+
+    private static async Task Main(string?[] args)
     {
         Env.Load("./.env");
         var apiKey = Environment.GetEnvironmentVariable("API_KEY");
-        
-        Console.Write("Enter your location: ");
-        var location = Console.ReadLine();
+        string? location;
+        if (args.Length > 0 && !string.IsNullOrWhiteSpace(args[0]))
+        {
+            location = args[0];
+        }
+        else
+        {
+            Console.Write("Enter your location: ");
+            location = Console.ReadLine();
+        }
         if (string.IsNullOrWhiteSpace(location))
         {
             location = "Budapest, Hungary";
         }
 
         using var client = new HttpClient();
-        const string requestType = "current";
-        var requestUrl = $"{BaseUrl}/{requestType}?access_key={apiKey}&query={Uri.EscapeDataString(location)}";
+        
+        var requestCurrentUrl = $"{BaseUrl}/{Queries[0]}?access_key={apiKey}&query={Uri.EscapeDataString(location)}";
+        var requestForecastUrl = $"{BaseUrl}/{Queries[1]}?access_key={apiKey}&query={Uri.EscapeDataString(location)}&forecast_days={ForecastDays}&hourly={ForecastHours}";
         try
         {
-            var response = await client.GetAsync(requestUrl);
+            var response = await client.GetAsync(requestCurrentUrl);
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
-            using JsonDocument doc = JsonDocument.Parse(content);
+            using var doc = JsonDocument.Parse(content);
             var root = doc.RootElement;
             
-            if (root.TryGetProperty("location", out JsonElement locationJsonElement))
+            if (root.TryGetProperty("location", out var locationJsonElement))
             {
-                LocationInfo locationInfo = new LocationInfo(locationJsonElement);
+                var locationInfo = new LocationInfo(locationJsonElement);
                 locationInfo.Print();
             }
             else
@@ -48,10 +67,10 @@ class Program
                 Console.WriteLine("Error: 'current' data not found in response.");
                 return;
             }
-
-            if (root.TryGetProperty("current", out JsonElement currentJsonElement))
+            
+            if (root.TryGetProperty("current", out var currentJsonElement))
             {
-                WeatherInfo weatherInfo = new WeatherInfo(currentJsonElement);
+                var weatherInfo = new WeatherInfo(currentJsonElement);
                 weatherInfo.Print();
             }
             else
@@ -59,9 +78,9 @@ class Program
                 Console.WriteLine("Error: Could not retrieve weather data.");
             }
             
-            if (currentJsonElement.TryGetProperty("astro", out JsonElement astroJsonElement))
+            if (currentJsonElement.TryGetProperty("astro", out var astroJsonElement))
             {
-                AstroInfo astroInfo = new AstroInfo(astroJsonElement);
+                var astroInfo = new AstroInfo(astroJsonElement);
                 astroInfo.Print();
             }
             else
@@ -69,6 +88,22 @@ class Program
                 Console.WriteLine("Error: Could not retrieve astro data.");
             }
             
+            response = await client.GetAsync(requestForecastUrl);
+            response.EnsureSuccessStatusCode();
+            content = await response.Content.ReadAsStringAsync();
+            using var forecastDoc = JsonDocument.Parse(content);
+            root = forecastDoc.RootElement;
+            
+            if (root.TryGetProperty("forecast", out JsonElement forecastJsonElement))
+            {
+                var tomorrow = DateTime.Today.AddDays(1);
+                if (forecastJsonElement.TryGetProperty(tomorrow.ToString(CultureInfo.InvariantCulture),
+                        out var dayJsonElement))
+                {
+                    var nextDay = new Forecast(dayJsonElement);
+                    nextDay.Print();
+                }
+            }
         }
         catch (Exception ex)
         {
