@@ -10,7 +10,7 @@ class Program
 {
     private static readonly string BaseUrl = "https://api.weatherstack.com";
 
-    static async Task Main(string [] args)
+    static async Task Main()
     {
         Env.Load("./.env");
         var apiKey = Environment.GetEnvironmentVariable("API_KEY");
@@ -33,15 +33,25 @@ class Program
             using JsonDocument doc = JsonDocument.Parse(content);
             var root = doc.RootElement;
             
-            if (!root.TryGetProperty("current", out JsonElement currentTry))
+            if (root.TryGetProperty("location", out JsonElement locationJsonElement))
+            {
+                LocationInfo locationInfo = new LocationInfo(locationJsonElement);
+                locationInfo.Print();
+            }
+            else
+            {
+                Console.WriteLine("Error: Could not retrieve location data.");
+            }
+            
+            if (!root.TryGetProperty("current", out _))
             {
                 Console.WriteLine("Error: 'current' data not found in response.");
                 return;
             }
 
-            if (root.TryGetProperty("current", out JsonElement current))
+            if (root.TryGetProperty("current", out JsonElement currentJsonElement))
             {
-                WeatherInfo weatherInfo = new WeatherInfo(current);
+                WeatherInfo weatherInfo = new WeatherInfo(currentJsonElement);
                 weatherInfo.Print();
             }
             else
@@ -49,14 +59,14 @@ class Program
                 Console.WriteLine("Error: Could not retrieve weather data.");
             }
             
-            if (current.TryGetProperty("astro", out JsonElement astro))
+            if (currentJsonElement.TryGetProperty("astro", out JsonElement astroJsonElement))
             {
-                AstroInfo astroInfo = new AstroInfo(astro);
+                AstroInfo astroInfo = new AstroInfo(astroJsonElement);
                 astroInfo.Print();
             }
             else
             {
-                Console.WriteLine("Astro data not found.");
+                Console.WriteLine("Error: Could not retrieve astro data.");
             }
             
         }
