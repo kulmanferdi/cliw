@@ -9,7 +9,7 @@ using DotNetEnv;
 class Program
 {
     private static readonly string BaseUrl = "https://api.weatherstack.com";
-
+    
     static async Task Main()
     {
         Env.Load("./.env");
@@ -19,7 +19,7 @@ class Program
         var location = Console.ReadLine();
         if (string.IsNullOrWhiteSpace(location))
         {
-            location = "Budapest";
+            location = "Budapest, Hungary";
         }
 
         using var client = new HttpClient();
