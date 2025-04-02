@@ -23,5 +23,31 @@ Console line interface weather app, fetching weather information from WeatherSta
 
 Register on [weatherstack.com](https://weatherstack.com/) to get your API key.
 
-Create a **.env** file into /your_project/bin/Debug/net9.0 and put your API Key into it.  
-`API_KEY=your_api_key`
+Create a **.env** file into **/your_project/bin/Debug/net9.0** folder and put your API Key into it.  
+
+``` .env
+API_KEY=your_api_key
+```
+
+## Key features
+Display detailed weather report on your console.
+- location
+- weather information
+- astro information
+- forecast (soon)
+
+## Run
+To run the project enter the command below into your terminal:
+``` zsh
+dotnet run
+```
+If you don't enter any location, then **Budapest** will be set as default. 
+Soon you will be able to give your location as an argument. Example:  
+``` zsh
+dotnet run -- "London"
+```
+
+or enter the country too:
+``` zsh
+dotnet run -- "London, United Kingdom"
+```
