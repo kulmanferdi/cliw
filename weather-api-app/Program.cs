@@ -21,10 +21,9 @@ class Program
         {
             location = "Budapest";
         }
-        Console.WriteLine($"Your location is {location}.\n");
 
         using var client = new HttpClient();
-        var requestType = "current";
+        const string requestType = "current";
         var requestUrl = $"{BaseUrl}/{requestType}?access_key={apiKey}&query={Uri.EscapeDataString(location)}";
         try
         {
@@ -34,27 +33,16 @@ class Program
             using JsonDocument doc = JsonDocument.Parse(content);
             var root = doc.RootElement;
             
-            if (!root.TryGetProperty("current", out JsonElement bbbb))
+            if (!root.TryGetProperty("current", out JsonElement currentTry))
             {
                 Console.WriteLine("Error: 'current' data not found in response.");
                 return;
             }
+
             if (root.TryGetProperty("current", out JsonElement current))
             {
-                var temperature = current.GetProperty("temperature").GetInt32();
-                var feelsLike = current.GetProperty("feelslike").GetInt32();
-                var windSpeed = current.GetProperty("wind_speed").GetInt32();
-                var windDirection = current.GetProperty("wind_dir").GetString();
-                var humidity = current.GetProperty("humidity").GetInt32();
-                var uvIndex = current.GetProperty("uv_index").GetInt32();
-                var descriptions = current.GetProperty("weather_descriptions").EnumerateArray().Select(e => e.GetString()).ToArray();
-                var observationTime = current.GetProperty("observation_time").GetString();
-                
-                Console.WriteLine("Weather info:");
-                Console.WriteLine($"Temperature: {temperature} °C @ {observationTime}");
-                Console.WriteLine($"Feels like: {feelsLike} °C\n{descriptions.FirstOrDefault()}");
-                Console.WriteLine($"Wind: {windSpeed} km/h direction: {windDirection}");
-                Console.WriteLine($"Humidity: {humidity} %\nUV Index: {uvIndex}\n");
+                WeatherInfo weatherInfo = new WeatherInfo(current);
+                weatherInfo.Print();
             }
             else
             {
@@ -63,15 +51,8 @@ class Program
             
             if (current.TryGetProperty("astro", out JsonElement astro))
             {
-                var sunrise = astro.GetProperty("sunrise").GetString();
-                var sunset = astro.GetProperty("sunset").GetString();
-                var moonrise = astro.GetProperty("moonrise").GetString();
-                var moonset = astro.GetProperty("moonset").GetString();
-                var moonPhase = astro.GetProperty("moon_phase").GetString();
-                
-                Console.WriteLine("Astro info:");
-                Console.WriteLine($"Sunrise: {sunrise}\nSunset: {sunset}");
-                Console.WriteLine($"Moonrise: {moonrise}\nMoonset: {moonset}\nMoonPhase: {moonPhase}\n");
+                AstroInfo astroInfo = new AstroInfo(astro);
+                astroInfo.Print();
             }
             else
             {
