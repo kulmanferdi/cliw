@@ -13,7 +13,7 @@ Console line interface weather app, fetching weather information from WeatherSta
   [download](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
   
 - [**DotNetEnv nuget package**](https://www.nuget.org/packages/DotNetEnv):
-  Enter the command below into the terminal in your project folder.
+  Open the folder that contains, your files, then enter the command below into the terminal.
   
   ``` zsh
   dotnet add package DotNetEnv
