@@ -34,7 +34,7 @@ Display detailed weather report on your console.
 - location
 - weather information
 - astro information
-- forecast (soon)
+- forecast (not included in the free API's response)
 
 ## Run
 To run the project enter the command below into your terminal:
