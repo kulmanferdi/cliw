@@ -49,6 +49,7 @@ internal abstract class Program
             var response = await client.GetAsync(requestCurrentUrl);
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
+            await File.WriteAllTextAsync("current_weather.json", content);
             using var doc = JsonDocument.Parse(content);
             var root = doc.RootElement;
             
