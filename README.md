@@ -25,3 +25,6 @@ Register on [weatherstack.com](https://weatherstack.com/) to get your API key.
 
 Create a **.env** file into /your_project/bin/Debug/net9.0 and put your API Key into it.  
 `API_KEY=your_api_key`
+
+## Example output
+![example output](./doc_src/output.png)
