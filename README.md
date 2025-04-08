@@ -27,4 +27,6 @@ Create a **.env** file into /your_project/bin/Debug/net9.0 and put your API Key 
 `API_KEY=your_api_key`
 
 ## Example output
+We use the default location below, that's why we didn't enter anything.
+
 ![example output](./doc_src/output.png)
