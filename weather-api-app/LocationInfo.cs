@@ -10,6 +10,9 @@ public class LocationInfo(JsonElement location)
 
     public void Print()
     {
-        Console.WriteLine($"Your location:\nCity: {City}\nCountry: {Country}\nLocal time: {LocalTime}\n");
+        Console.WriteLine($"Your location:\n" +
+                          $"City: {City}\n" +
+                          $"Country: {Country}\n" +
+                          $"Local time: {LocalTime}\n");
     }
 }
