@@ -53,6 +53,9 @@ internal abstract class Program
             using var doc = JsonDocument.Parse(content);
             var root = doc.RootElement;
             
+            Console.Clear();
+            Console.WriteLine("CLIW report\n");
+            
             if (root.TryGetProperty("location", out var locationJsonElement))
             {
                 var locationInfo = new LocationInfo(locationJsonElement);
