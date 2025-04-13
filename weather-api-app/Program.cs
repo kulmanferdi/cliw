@@ -100,7 +100,7 @@ internal abstract class Program
             
             if (root.TryGetProperty("forecast", out var forecastJsonElement))
             {
-                var tomorrow = DateTime.Today.AddDays(1);
+                var tomorrow = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd");
                 if (forecastJsonElement.TryGetProperty(tomorrow.ToString(CultureInfo.InvariantCulture),
                         out var dayJsonElement))
                 {
