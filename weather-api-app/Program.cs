@@ -98,7 +98,7 @@ internal abstract class Program
             using var forecastDoc = JsonDocument.Parse(content);
             root = forecastDoc.RootElement;
             
-            if (root.TryGetProperty("forecast", out JsonElement forecastJsonElement))
+            if (root.TryGetProperty("forecast", out var forecastJsonElement))
             {
                 var tomorrow = DateTime.Today.AddDays(1);
                 if (forecastJsonElement.TryGetProperty(tomorrow.ToString(CultureInfo.InvariantCulture),
