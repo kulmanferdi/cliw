@@ -32,3 +32,7 @@ We use the default location below, that's why we didn't enter anything.
 ![example output](./doc_src/output.png)
 
 Forecast is only available for Professional Plan and higher tier subscriptions.
+
+## Contribution
+
+If you would like to contribute to the project, you can find the [documentation](https://weatherstack.com/documentation) here.
