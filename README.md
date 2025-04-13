@@ -30,3 +30,5 @@ Create a **.env** file into /your_project/bin/Debug/net9.0 and put your API Key 
 We use the default location below, that's why we didn't enter anything.
 
 ![example output](./doc_src/output.png)
+
+Forecast is only available for Professional Plan and higher tier subscriptions.
