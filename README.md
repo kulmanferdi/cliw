@@ -12,11 +12,13 @@ Console line interface weather app, fetching weather information from WeatherSta
   On Windows:
   [download](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
   
-- [**DotNetEnv nuget package**](https://www.nuget.org/packages/DotNetEnv):
-  Enter the command below into the terminal in your project folder.
+- NuGet packages:
+  In order to run this project, you need to install the following packages.
   
   ``` zsh
   dotnet add package DotNetEnv
+  dotnet add package Serilog.AspNetCore
+  dotnet add package Serilog.Sinks.Console
   ```
 
 ## API key
