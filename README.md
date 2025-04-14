@@ -12,7 +12,7 @@ Console line interface weather app, fetching weather information from WeatherSta
   On Windows:
   [download](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
   
-- NuGet packages:
+- **NuGet packages**:
   In order to run this project, you need to install the following packages.
   
   ``` zsh
