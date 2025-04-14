@@ -1,19 +1,18 @@
-﻿using System.Globalization;
-
-namespace weather_api_app;
+﻿namespace weather_api_app;
 
 using System;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DotNetEnv;
+using System.Globalization;
 
 internal abstract class Program
 {
     private const string BaseUrl = "https://api.weatherstack.com";
 
     private static readonly string [] Queries =
-    [
+    [ 
         "current",
         "forecast"
     ];
@@ -25,6 +24,12 @@ internal abstract class Program
     {
         Env.Load("./.env");
         var apiKey = Environment.GetEnvironmentVariable("API_KEY");
+        if (string.IsNullOrWhiteSpace(apiKey))
+        {
+            Console.WriteLine("API Key is missing");
+            return;
+        }
+        
         string? location;
         if (args.Length > 0 && !string.IsNullOrWhiteSpace(args[0]))
         {
