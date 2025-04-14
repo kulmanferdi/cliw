@@ -3,19 +3,23 @@
 using System;
 using System.Threading.Tasks;
 using DotNetEnv;
+using Serilog;
 
 internal abstract class Program
 {
-    private const int ForecastDays = 1;
-    private const int ForecastHours = 1;
-
+    
     private static async Task Main()
     {
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .CreateLogger();
+        
+        Log.Information("Starting application");
         Env.Load("./.env");
         var apiKey = Environment.GetEnvironmentVariable("API_KEY");
         if (string.IsNullOrWhiteSpace(apiKey))
         {
-            Console.WriteLine("API Key is missing");
+            Log.Error("API Key is missing");
             return;
         }
 
@@ -29,7 +33,7 @@ internal abstract class Program
         try
         {
             var (locationInfo, weatherInfo, astroInfo) = await service.GetCurrentWeatherAsync(location);
-            var forecast = await service.GetTomorrowForecastAsync(location, ForecastDays, ForecastHours);
+            var forecast = await service.GetTomorrowForecastAsync(location);
 
             Console.Clear();
             Console.WriteLine("CLIW report\n");
@@ -38,10 +42,11 @@ internal abstract class Program
             weatherInfo?.Print();
             astroInfo?.Print();
             forecast?.Print();
+            Log.Information("Weather report successful.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Error fetching weather data: " + ex.Message);
+            Log.Error("Error fetching weather data: " + ex.Message);
         }
     }
 }
