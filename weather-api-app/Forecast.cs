@@ -4,10 +4,10 @@ namespace weather_api_app;
 
 public class Forecast(JsonElement root)
 {
-    private string MinTemp  { get; } = root.GetProperty("mintemp").GetString()!;
-    private string MaxTemp  { get; } = root.GetProperty("maxtemp").GetString()!;
-    private string AvgTemp  { get; }  = root.GetProperty("avgtemp").GetString()!;
-    private int Uvi  { get; } = root.GetProperty("uv_index").GetInt32();
+    private string MinTemp { get; } = root.GetProperty("mintemp").GetString()!;
+    private string MaxTemp { get; } = root.GetProperty("maxtemp").GetString()!;
+    private string AvgTemp { get; }  = root.GetProperty("avgtemp").GetString()!;
+    private int Uvi { get; } = root.GetProperty("uv_index").GetInt32();
     private List<ForecastHour> Hourly  { get; } = [];
 
     public void Print()

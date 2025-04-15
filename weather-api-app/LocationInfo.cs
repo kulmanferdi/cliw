@@ -15,4 +15,10 @@ public class LocationInfo(JsonElement location)
                           $"Country: {Country}\n" +
                           $"Local time: {LocalTime}\n");
     }
+
+    public void GetCityAndCountry()
+    {
+        Console.WriteLine($"City: {City}, Country: {Country}");
+    }
+    public string CityName => City;
 }

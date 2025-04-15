@@ -7,7 +7,6 @@ using Serilog;
 
 internal abstract class Program
 {
-    
     private static async Task Main()
     {
         Log.Logger = new LoggerConfiguration()
@@ -22,26 +21,29 @@ internal abstract class Program
             Log.Error("API Key is missing");
             return;
         }
-
+        
+        var service = new WeatherService(apiKey);
+        
         Console.Write("Enter your location: ");
         var location = Console.ReadLine();
-        if (string.IsNullOrWhiteSpace(location))
-            location = "Budapest, Hungary";
-
-        var service = new WeatherService(apiKey);
-
+        //await service.SetLocationAsync(location);
+        Log.Information("Location set");
         try
         {
-            var (locationInfo, weatherInfo, astroInfo) = await service.GetCurrentWeatherAsync(location);
-            var forecast = await service.GetTomorrowForecastAsync(location);
+            if (location != null)
+            {
+                var (locationInfo, weatherInfo, astroInfo) = await service.GetCurrentWeatherAsync(location);
+                //var forecast = await service.GetTomorrowForecastAsync(location);
 
-            Console.Clear();
-            Console.WriteLine("CLIW report\n");
+                Console.Clear();
+                Console.WriteLine("CLIW report\n");
 
-            locationInfo?.Print();
-            weatherInfo?.Print();
-            astroInfo?.Print();
-            forecast?.Print();
+                locationInfo?.Print();
+                weatherInfo?.Print();
+                astroInfo?.Print();
+                //forecast?.Print();
+            }
+
             Log.Information("Weather report successful.");
         }
         catch (Exception ex)
