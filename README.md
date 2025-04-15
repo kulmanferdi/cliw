@@ -21,12 +21,24 @@ Console line interface weather app, fetching weather information from WeatherSta
   dotnet add package Serilog.Sinks.Console
   ```
 
-## API key
+## Environment
+
+Create a **.env** file into **/your_project/bin/Debug/net9.0** folder. Then enter the lines below.
+
+### API key
 
 Register on [weatherstack.com](https://weatherstack.com/) to get your API key.
 
-Create a **.env** file into /your_project/bin/Debug/net9.0 and put your API Key into it.  
-`API_KEY=your_api_key`
+```env
+API_KEY=your_api_key
+```
+
+### Base URL
+
+Put the base url into the **.env** file.
+```env
+BASE_URL=https://api.weatherstack.com
+```
 
 ## Example output
 We use the default location below, that's why we didn't enter anything.
