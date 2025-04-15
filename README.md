@@ -33,7 +33,13 @@ We use the default location below, that's why we didn't enter anything.
 
 ![example output](./doc_src/output.png)
 
-Forecast is only available for Professional Plan and higher tier subscriptions.
+
+### Premium features
+
+- Location lookup/autocomplete is available from the Standaard subscription level.
+- Forecast is only available for Professional Plan and higher tier subscriptions.
+
+Check [pricing](https://weatherstack.com/pricing)
 
 ## Contribution
 
