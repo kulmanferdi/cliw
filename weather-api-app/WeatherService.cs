@@ -1,21 +1,33 @@
 using System.Text.Json;
 using System.Globalization;
+using Serilog;
 
 namespace weather_api_app;
 
-public class WeatherService(string apiKey)
+public class WeatherService
 {
     private readonly HttpClient _client = new();
-    private const string BaseUrl = "https://api.weatherstack.com";
+    
+    private readonly string? _baseUrl = Environment.GetEnvironmentVariable("BASE_URL");
+    private readonly string? _apiKey= Environment.GetEnvironmentVariable("API_KEY");
 
     private readonly string[] _queries = ["current", "forecast", "autocomplete"];
     
     private const int ForecastDays = 1;
     private const int ForecastHours = 1;
 
+    public Task CheckEnvironmentVariables()
+    {
+        if (string.IsNullOrEmpty(_apiKey))
+            Log.Error("API key is missing");
+        if(string.IsNullOrEmpty(_baseUrl))
+            Log.Error("Base URL is missing");
+        return Task.CompletedTask;
+    }
+
     public async Task<(LocationInfo?, WeatherInfo?, AstroInfo?)> GetCurrentWeatherAsync(string location)
     {
-        var url = $"{BaseUrl}/{_queries[0]}?access_key={apiKey}&query={Uri.EscapeDataString(location)}";
+        var url = $"{_baseUrl}/{_queries[0]}?access_key={_apiKey}&query={Uri.EscapeDataString(location)}";
         var response = await _client.GetAsync(url);
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
@@ -40,7 +52,7 @@ public class WeatherService(string apiKey)
 
     public async Task<Forecast?> GetTomorrowForecastAsync(string location)
     {
-        var url = $"{BaseUrl}/{_queries[1]}?access_key={apiKey}&query={Uri.EscapeDataString(location)}&forecast_days={ForecastDays}&hourly={ForecastHours}";
+        var url = $"{_baseUrl}/{_queries[1]}?access_key={_apiKey}&query={Uri.EscapeDataString(location)}&forecast_days={ForecastDays}&hourly={ForecastHours}";
         var response = await _client.GetAsync(url);
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
@@ -58,7 +70,7 @@ public class WeatherService(string apiKey)
         var locations = new List<LocationInfo?>();
         if (location != null)
         {
-            var url = $"{BaseUrl}/{_queries[2]}?access_key={apiKey}&query={Uri.EscapeDataString(location)}";
+            var url = $"{_baseUrl}/{_queries[2]}?access_key={_apiKey}&query={Uri.EscapeDataString(location)}";
             var response = await _client.GetAsync(url);
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();

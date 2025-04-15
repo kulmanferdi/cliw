@@ -13,17 +13,16 @@ internal abstract class Program
             .WriteTo.Console()
             .CreateLogger();
         
-        Log.Information("Starting application");
+        Log.Information("Starting application.");
+        
         Env.Load("./.env");
-        var apiKey = Environment.GetEnvironmentVariable("API_KEY");
-        if (string.IsNullOrWhiteSpace(apiKey))
-        {
-            Log.Error("API Key is missing");
-            return;
-        }
+        Log.Information("Setting up the environment...");
         
-        var service = new WeatherService(apiKey);
+        var service = new WeatherService();
         
+        await service.CheckEnvironmentVariables();
+        
+        Log.Information("Weather service is ready.");
         Console.Write("Enter your location: ");
         var location = Console.ReadLine();
         //await service.SetLocationAsync(location);
