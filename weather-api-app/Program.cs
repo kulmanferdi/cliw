@@ -26,15 +26,18 @@ internal abstract class Program
         Console.Write("Enter your location: ");
         var location = Console.ReadLine();
         //await service.SetLocationAsync(location);
-        Log.Information("Location set");
         try
         {
             if (location != null)
             {
+                Log.Information("Location set");
                 var (locationInfo, weatherInfo, astroInfo) = await service.GetCurrentWeatherAsync(location);
                 //var forecast = await service.GetTomorrowForecastAsync(location);
 
+                Log.Information("Creating report...");
+                
                 Console.Clear();
+                
                 Console.WriteLine("CLIW report\n");
 
                 locationInfo?.Print();
@@ -42,7 +45,6 @@ internal abstract class Program
                 astroInfo?.Print();
                 //forecast?.Print();
             }
-
             Log.Information("Weather report successful.");
         }
         catch (Exception ex)
