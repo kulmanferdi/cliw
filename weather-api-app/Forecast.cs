@@ -10,7 +10,7 @@ public class Forecast(JsonElement root)
     private int Uvi { get; } = root.GetProperty("uv_index").GetInt32();
     private List<ForecastHour> Hourly  { get; } = [];
 
-    public void Print()
+    public void Display()
     {
         Console.WriteLine($"Forecast for tomorrow:\n" +
                           $"Min temp: {MinTemp} °C\n" +
@@ -19,7 +19,7 @@ public class Forecast(JsonElement root)
                           $"UV Index: {Uvi}");
         GetHourly();
         Console.WriteLine("Forecast hours:");
-        Hourly.ForEach(h => h.Print());
+        Hourly.ForEach(h => h.Display());
     }
 
     private void GetHourly()

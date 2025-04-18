@@ -8,17 +8,10 @@ public class LocationInfo(JsonElement location)
     private string Country { get; } = location.GetProperty("country").GetString()!;
     private string LocalTime { get; } = location.GetProperty("localtime").GetString()!;
 
-    public void Print()
+    public void Display()
     {
-        Console.WriteLine($"Your location:\n" +
-                          $"City: {City}\n" +
-                          $"Country: {Country}\n" +
-                          $"Local time: {LocalTime}\n");
+        Console.WriteLine($"{City}, {Country} @ {LocalTime}\n");
     }
-
-    public void GetCityAndCountry()
-    {
-        Console.WriteLine($"City: {City}, Country: {Country}");
-    }
+    
     public string CityName => City;
 }

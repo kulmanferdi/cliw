@@ -14,7 +14,7 @@ public class WeatherInfo(JsonElement current)
     private int Uvi { get; } = current.GetProperty("uv_index").GetInt32();
     private int Visibility { get; } = current.GetProperty("visibility").GetInt32();
     
-    public void Print()
+    public void Display()
     {
         Console.WriteLine("Weather info:");
         Console.WriteLine($"Temperature: {Temperature} °C @ {ObservationTime}");

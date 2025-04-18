@@ -39,11 +39,12 @@ internal abstract class Program
                 Console.Clear();
                 
                 Console.WriteLine("CLIW report\n");
-
-                locationInfo?.Print();
-                weatherInfo?.Print();
-                astroInfo?.Print();
-                //forecast?.Print();
+                
+                Console.WriteLine("Your location:");
+                locationInfo?.Display();
+                weatherInfo?.Display();
+                astroInfo?.Display();
+                //forecast?.Display();
             }
             Log.Information("Weather report successful.");
         }

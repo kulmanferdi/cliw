@@ -12,7 +12,7 @@ public class ForecastHour(JsonElement hour)
     private int ChanceOfRain { get; } = hour.GetProperty("chanceofrain").GetInt32();
     private int Uvi { get; } = hour.GetProperty("uv_index").GetInt32();
 
-    public void Print()
+    public void Display()
     {
         Console.WriteLine($"Time: {Time}");
         Console.WriteLine($"Temperature: {Temperature} °C");

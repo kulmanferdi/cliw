@@ -11,7 +11,7 @@ public class AstroInfo(JsonElement astro)
     private string Moonphase { get; } = astro.GetProperty("moon_phase").GetString()!;
     private int MoonIllumination { get; } = astro.GetProperty("moon_illumination").GetInt32();
 
-    public void Print()
+    public void Display()
     {
         Console.WriteLine("Astro info:");
         Console.WriteLine($"Sunrise: {Sunrise}\nSunset: {Sunset}");

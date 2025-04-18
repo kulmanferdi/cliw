@@ -90,7 +90,7 @@ public class WeatherService
             case 1: break;
             case > 1:
             {
-                PrintList(locations);
+                PrintLocationsList(locations);
                 Console.Write("Choose your locations number: ");
                 var number = Convert.ToInt32(Console.ReadLine());
                 location = locations[number - 1]?.CityName;
@@ -101,14 +101,14 @@ public class WeatherService
         return location;
     }
     
-    private static void PrintList(List<LocationInfo?> locations)
+    private static void PrintLocationsList(List<LocationInfo?> locations)
     {
         var i = 0;
         Console.WriteLine("List of locations:");
         foreach (var item in locations)
         {
             Console.Write($"{++i} - ");
-            item?.GetCityAndCountry();
+            item?.Display();
         }
     }
 }
