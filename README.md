@@ -48,7 +48,7 @@ We use the default location below, that's why we didn't enter anything.
 
 ### Premium features
 
-- Location lookup/autocomplete is available from the Standaard subscription level.
+- Location lookup/autocomplete is available from the Standard subscription level.
 - Forecast is only available for Professional Plan and higher tier subscriptions.
 
 Check [pricing](https://weatherstack.com/pricing)
