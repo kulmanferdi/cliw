@@ -1,7 +1,3 @@
-using System.Text.Json;
-using System.Globalization;
-using Serilog;
-
 namespace weather_api_app;
 
 public class WeatherService

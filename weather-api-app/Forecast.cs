@@ -1,5 +1,3 @@
-using System.Text.Json;
-
 namespace weather_api_app;
 
 public class Forecast(JsonElement root)

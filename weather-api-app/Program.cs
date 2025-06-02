@@ -1,10 +1,5 @@
 ﻿namespace weather_api_app;
 
-using System;
-using System.Threading.Tasks;
-using DotNetEnv;
-using Serilog;
-
 internal abstract class Program
 {
     private static async Task Main()

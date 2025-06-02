@@ -1,5 +1,3 @@
-using System.Text.Json;
-
 namespace weather_api_app;
 
 public class ForecastHour(JsonElement hour)
