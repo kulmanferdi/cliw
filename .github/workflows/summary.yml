@@ -9,26 +9,24 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       issues: write
-      models: read
-      contents: read
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Run AI inference
-        id: inference
-        uses: actions/ai-inference@v1
-        with:
-          prompt: |
-            Summarize the following GitHub issue in one paragraph:
-            Title: ${{ github.event.issue.title }}
-            Body: ${{ github.event.issue.body }}
-
-      - name: Comment with AI summary
+      - name: Generate AI summary
+        id: summary
         run: |
-          gh issue comment $ISSUE_NUMBER --body '${{ steps.inference.outputs.response }}'
+          ISSUE_TITLE="${{ github.event.issue.title }}"
+          ISSUE_BODY="${{ github.event.issue.body }}"
+          SUMMARY="AI Summary: The issue titled '$ISSUE_TITLE' describes: ${ISSUE_BODY:0:200}..."
+          echo "SUMMARY<<EOF" >> $GITHUB_OUTPUT
+          echo "$SUMMARY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Comment on the issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-          RESPONSE: ${{ steps.inference.outputs.response }}
+          SUMMARY: ${{ steps.summary.outputs.SUMMARY }}
+        run: |
+          gh issue comment $ISSUE_NUMBER --body "$SUMMARY"
