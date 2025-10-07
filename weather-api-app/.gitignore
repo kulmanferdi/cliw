@@ -9,3 +9,5 @@ obj/
 *.user
 *.suo
 *.swp
+
+.DS_Store
