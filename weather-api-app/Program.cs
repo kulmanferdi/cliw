@@ -4,6 +4,7 @@ internal abstract class Program
 {
     private static async Task Main()
     {
+        //testing build pipeline
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
             .CreateLogger();
