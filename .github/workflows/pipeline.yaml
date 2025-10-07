@@ -24,4 +24,4 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Run program
-        run: dotnet run --no-build --configuration Release --project ./Program.cs
+        run: dotnet run --no-build --configuration Release --project ./weather-api-app.csproj
