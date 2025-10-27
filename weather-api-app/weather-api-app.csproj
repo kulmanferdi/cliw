@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
@@ -6,12 +6,16 @@
         <RootNamespace>weather_api_app</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Version>0.1.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="DotNetEnv" Version="3.1.1" />
+      <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
+      <PackageReference Include="RazorConsole.Core" Version="0.0.5" />
       <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
       <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+      <PackageReference Include="Spectre.Console.Cli" Version="0.52.0" />
     </ItemGroup>
 
 </Project>

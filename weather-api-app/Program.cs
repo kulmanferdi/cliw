@@ -2,6 +2,7 @@
 
 internal abstract class Program
 {
+    private const bool Razor = false;
     private static async Task Main()
     {
         //testing build pipeline
@@ -30,23 +31,34 @@ internal abstract class Program
                 var (locationInfo, weatherInfo, astroInfo) = await service.GetCurrentWeatherAsync(location);
                 //var forecast = await service.GetTomorrowForecastAsync(location);
 
-                Log.Information("Creating report...");
+                if (!Razor)
+                {
+                    Log.Information("Creating report...");
                 
-                Console.Clear();
+                    Console.Clear();
                 
-                Console.WriteLine("CLIW report\n");
+                    Console.WriteLine("CLIW report\n");
                 
-                Console.WriteLine("Your location:");
-                locationInfo?.Display();
-                weatherInfo?.Display();
-                astroInfo?.Display();
-                //forecast?.Display();
+                    Console.WriteLine("Your location:");
+                    locationInfo?.Display();
+                    weatherInfo?.Display();
+                    astroInfo?.Display();
+                    //forecast?.Display();
+                }
+                else
+                {
+                    Console.Clear();
+                    await AppHost.RunAsync<Display>();
+                }
+                
             }
             Log.Information("Weather report successful.");
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            Log.Information($"Current: version: {version}");
         }
         catch (Exception ex)
         {
-            Log.Error("Error fetching weather data: " + ex.Message);
+            Log.Error("{0}Error fetching weather data: " + ex.Message, "ARG0");
         }
     }
 }

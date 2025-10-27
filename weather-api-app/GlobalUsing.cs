@@ -5,3 +5,5 @@ global using System.Globalization;
 
 global using DotNetEnv;
 global using Serilog;
+
+global using RazorConsole.Core;

@@ -19,6 +19,11 @@ Console line interface weather app, fetching weather information from WeatherSta
   dotnet add package DotNetEnv
   dotnet add package Serilog.AspNetCore
   dotnet add package Serilog.Sinks.Console
+  dotnet add package Microsoft.AspNetCore.Components
+  dotnet add package Microsoft.AspNetCore.Components.Web
+  dotnet add package Spectre.Console.Cli
+  dotnet add package RazorConsole.Core
+
   ```
 
 ## Environment
@@ -40,11 +45,13 @@ Put the base url into the **.env** file.
 BASE_URL=https://api.weatherstack.com
 ```
 
-## Example output
+## Text output 
 We use the default location below, that's why we didn't enter anything.
 
 ![example output](./doc_src/output.png)
 
+## Razor output 
+To be implemented.
 
 ### Premium features
 
