@@ -2,8 +2,7 @@
 
 internal abstract class Program
 {
-    private const bool Razor = false;
-    private static async Task Main()
+    public static async Task Main()
     {
         //testing build pipeline
         Log.Logger = new LoggerConfiguration()
@@ -31,25 +30,19 @@ internal abstract class Program
                 var (locationInfo, weatherInfo, astroInfo) = await service.GetCurrentWeatherAsync(location);
                 //var forecast = await service.GetTomorrowForecastAsync(location);
 
-                if (!Razor)
-                {
-                    Log.Information("Creating report...");
+            
+                Log.Information("Creating report...");
+            
+                Console.Clear();
+            
+                Console.WriteLine("CLIW report\n");
+            
+                Console.WriteLine("Your location:");
+                locationInfo?.Display();
+                weatherInfo?.Display();
+                astroInfo?.Display();
+                //forecast?.Display();
                 
-                    Console.Clear();
-                
-                    Console.WriteLine("CLIW report\n");
-                
-                    Console.WriteLine("Your location:");
-                    locationInfo?.Display();
-                    weatherInfo?.Display();
-                    astroInfo?.Display();
-                    //forecast?.Display();
-                }
-                else
-                {
-                    Console.Clear();
-                    await AppHost.RunAsync<Display>();
-                }
                 
             }
             Log.Information("Weather report successful.");
