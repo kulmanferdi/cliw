@@ -1,10 +1,17 @@
-@using Microsoft.AspNetCore.Components
-@using Microsoft.AspNetCore.Components.Web
 @using RazorConsole.Components
 
+@page "/display"
 
 <Columns>
-    <p>CLIW report</p>
+    <Rows>
+        <h1>CLIW report</h1>
+    </Rows>
+    <Rows>
+        Your location: {location}
+    </Rows>
+    <Rows></Rows>
+    
+    
 </Columns>
 
 @code {

@@ -2,7 +2,7 @@
 
 internal abstract class Program
 {
-    private static async Task Main()
+    public static async Task Main()
     {
         //testing build pipeline
         Log.Logger = new LoggerConfiguration()
@@ -29,7 +29,8 @@ internal abstract class Program
                 Log.Information("Location set");
                 var (locationInfo, weatherInfo, astroInfo) = await service.GetCurrentWeatherAsync(location);
                 //var forecast = await service.GetTomorrowForecastAsync(location);
-                
+
+            
                 Log.Information("Creating report...");
             
                 Console.Clear();
@@ -41,6 +42,8 @@ internal abstract class Program
                 weatherInfo?.Display();
                 astroInfo?.Display();
                 //forecast?.Display();
+                
+                
             }
             Log.Information("Weather report successful.");
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;

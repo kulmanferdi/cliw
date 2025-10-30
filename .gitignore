@@ -1,6 +1,7 @@
 # Custom
 .env
 .DS_Store
+.idea
 
 # User-specific files
 *.rsuser
