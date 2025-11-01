@@ -25,6 +25,9 @@ jobs:
 
       - name: Run program
         run: dotnet run --no-build --configuration Release --project ./weather-api-app/weather-api-app.csproj
+
+      - name: Format code
+        run: dotnet format
         
       - name: Test
         run: dotnet test --no-build --verbosity normal

@@ -6,6 +6,7 @@ public class WeatherService
     
     private readonly string? _baseUrl = Environment.GetEnvironmentVariable("BASE_URL");
     private readonly string? _apiKey= Environment.GetEnvironmentVariable("API_KEY");
+    private readonly string? _defaultLocation= Environment.GetEnvironmentVariable("DEFAULT_LOCATION");
 
     private readonly string[] _queries = ["current", "forecast", "autocomplete"];
     
@@ -70,7 +71,7 @@ public class WeatherService
             var response = await _client.GetAsync(url);
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
-        
+
             using var doc = JsonDocument.Parse(content);
             var root = doc.RootElement;
             if (!root.TryGetProperty("results", out var locationsJson))
@@ -78,8 +79,9 @@ public class WeatherService
                 locations.AddRange(locationsJson.EnumerateArray().Select(item => new LocationInfo(item)));
             }
         }
-        else 
-            location = "Budapest, Hungary";
+        else
+            location = _defaultLocation;
+            
 
         switch (locations.Count)
         {

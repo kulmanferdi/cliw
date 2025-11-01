@@ -45,6 +45,13 @@ Put the base url into the **.env** file.
 BASE_URL=https://api.weatherstack.com
 ```
 
+### Default location
+
+Be sure to define a default location in the .env file, which will be shown whenever an invalid location is provided.
+```env
+DEFAULT_LOCATION="Budapest, Hungary"
+```
+
 ## Text output 
 We use the default location below, that's why we didn't enter anything.
 
