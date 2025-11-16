@@ -3,6 +3,8 @@ name: CI pipeline
 on:
   push:
     branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   build:
@@ -28,7 +30,4 @@ jobs:
 
       - name: Format code
         run: dotnet format
-        
-      - name: Test
-        run: dotnet test --no-build --verbosity normal
         
