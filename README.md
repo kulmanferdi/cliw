@@ -2,15 +2,9 @@
 Console line interface weather app, fetching weather information from WeatherStack Free API.
 
 ## Requirements
-- **DOTNET 9.0**: Usually comes with your IDE. Or install it manually.
-   
-  On mac:
-  ``` zsh
-  brew install --cask dotnet
-  ```
-
-  On Windows:
-  [download](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
+- **DOTNET 9.0**: Usually comes with your IDE or you can install it manually.
+ 
+  [download](https://dotnet.microsoft.com/en-us/download)
   
 - **NuGet packages**:
   In order to run this project, you need to install the following packages.
