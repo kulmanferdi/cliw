@@ -1,7 +1,9 @@
-name: CI pipeline
+name: Master CI pipeline for dotnet 9
 
 on:
   push:
+    branches: [ master ]
+  pr:
     branches: [ master ]
 
 jobs:
