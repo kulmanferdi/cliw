@@ -1,6 +1,6 @@
 namespace weather_api_app;
 
-public class WeatherService
+public class WeatherService(int forecastDays, int forecastHours)
 {
     private readonly HttpClient _client = new();
     
@@ -8,9 +8,6 @@ public class WeatherService
     private readonly string? _apiKey= Environment.GetEnvironmentVariable("API_KEY");
 
     private readonly string[] _queries = ["current", "forecast", "autocomplete"];
-    
-    private const int ForecastDays = 1;
-    private const int ForecastHours = 1;
 
     public Task CheckEnvironmentVariables()
     {
@@ -48,7 +45,7 @@ public class WeatherService
 
     public async Task<Forecast?> GetTomorrowForecastAsync(string location)
     {
-        var url = $"{_baseUrl}/{_queries[1]}?access_key={_apiKey}&query={Uri.EscapeDataString(location)}&forecast_days={ForecastDays}&hourly={ForecastHours}";
+        var url = $"{_baseUrl}/{_queries[1]}?access_key={_apiKey}&query={Uri.EscapeDataString(location)}&forecast_days={forecastDays}&hourly={forecastHours}";
         var response = await _client.GetAsync(url);
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();

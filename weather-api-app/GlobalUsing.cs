@@ -6,4 +6,5 @@ global using System.Globalization;
 global using DotNetEnv;
 global using Serilog;
 
+global using Microsoft.Extensions.Hosting;
 global using RazorConsole.Core;
